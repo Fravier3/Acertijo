@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario Personal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      max-width: 700px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.8s ease;
+      overflow-y: auto;
+      max-height: 95vh;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+    }
+    .question p {
+      margin: 0 0 10px 0;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    input[type="radio"], input[type="text"], textarea {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 6px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #00c6ff;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #0072ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cuestionario Personal</h2>
+    <form id="quiz-form" action="https://formspree.io/f/xblapzko" method="POST">
+
+      <!-- Preguntas 1 - 5 -->
+      <div class="question"><p>1. ¿Cuál es tu comida favorita?</p><input type="text" name="¿Cuál es tu comida favorita?"></div>
+      <div class="question"><p>2. ¿Cuál es tu color favorito?</p><input type="text" name="¿Cuál es tu color favorito?"></div>
+      <div class="question"><p>3. ¿Cuál es tu dulce favorito?</p><input type="text" name="¿Cuál es tu dulce favorito?"></div>
+      <div class="question"><p>4. ¿Qué te gusta más?</p>
+        <label><input type="radio" name="¿Qué te gusta más?" value="Ver pelis"> Ver pelis</label>
+        <label><input type="radio" name="¿Qué te gusta más?" value="Dormir"> Dormir</label>
+        <label><input type="radio" name="¿Qué te gusta más?" value="Salir a pasear"> Salir a pasear</label>
+      </div>
+      <div class="question"><p>5. ¿Qué te gusta más en vestir?</p>
+        <label><input type="radio" name="¿Qué te gusta más en vestir?" value="Vestido"> Vestido</label>
+        <label><input type="radio" name="¿Qué te gusta más en vestir?" value="Pantalón con camisa"> Pantalón con camisa</label>
+      </div>
+
+      <!-- Preguntas 6 - 10 -->
+      <div class="question"><p>6. ¿Qué cosa has comprado y volverías a comprar muchas veces?</p><input type="text" name="¿Qué cosa has comprado y volverías a comprar muchas veces?"></div>
+      <div class="question"><p>7. ¿Qué objeto o regalo te haría mucha ilusión recibir?</p><input type="text" name="¿Qué objeto o regalo te haría mucha ilusión recibir?"></div>
+      <div class="question"><p>8. ¿Qué te gustaría lograr en la vida?</p><textarea name="¿Qué te gustaría lograr en la vida?"></textarea></div>
+      <div class="question"><p>9. ¿Qué nunca has hecho y te encantaría hacer?</p><textarea name="¿Qué nunca has hecho y te encantaría hacer?"></textarea></div>
+      <div class="question"><p>10. Si pudieras viajar a cualquier lugar del mundo, ¿a dónde irías?</p><input type="text" name="Si pudieras viajar a cualquier lugar del mundo, ¿a dónde irías?"></div>
+
+      <!-- Preguntas 11 - 15 -->
+      <div class="question"><p>11. Si quisieras que yo siempre hiciera algo que te gusta, ¿qué sería?</p><textarea name="Si quisieras que yo siempre hiciera algo que te gusta, ¿qué sería?"></textarea></div>
+      <div class="question"><p>12. ¿Qué valorarías más en una relación?</p><textarea name="¿Qué valorarías más en una relación?"></textarea></div>
+      <div class="question"><p>13. ¿Qué superpoder te gustaría tener?</p><input type="text" name="¿Qué superpoder te gustaría tener?"></div>
+      <div class="question"><p>14. A mí me puedes asociar con un astronauta, ¿a ti con qué te puedo asociar?</p><input type="text" name="A mí me puedes asociar con un astronauta, ¿a ti con qué te puedo asociar?"></div>
+      <div class="question"><p>15. ¿Qué prefieres para pasar el tiempo?</p>
+        <label><input type="radio" name="¿Qué prefieres para pasar el tiempo?" value="Leer"> Leer</label>
+        <label><input type="radio" name="¿Qué prefieres para pasar el tiempo?" value="Ver series/películas"> Ver series/películas</label>
+        <label><input type="radio" name="¿Qué prefieres para pasar el tiempo?" value="Escuchar música"> Escuchar música</label>
+      </div>
+
+      <!-- Preguntas 16 - 20 -->
+      <div class="question"><p>16. ¿Prefieres salir de fiesta o quedarte en casa con una peli/serie?</p>
+        <label><input type="radio" name="¿Prefieres salir de fiesta o quedarte en casa con una peli/serie?" value="Salir de fiesta"> Salir de fiesta</label>
+        <label><input type="radio" name="¿Prefieres salir de fiesta o quedarte en casa con una peli/serie?" value="Quedarme en casa"> Quedarme en casa</label>
+      </div>
+      <div class="question"><p>17. ¿Qué canción nunca te cansas de escuchar?</p><input type="text" name="¿Qué canción nunca te cansas de escuchar?"></div>
+      <div class="question"><p>18. ¿Qué actividad disfrutas más en tu tiempo libre?</p><input type="text" name="¿Qué actividad disfrutas más en tu tiempo libre?"></div>
+      <div class="question"><p>19. ¿Qué cosa simple te hace feliz?</p><input type="text" name="¿Qué cosa simple te hace feliz?"></div>
+      <div class="question"><p>20. ¿Cuál es el recuerdo más bonito que tienes?</p><textarea name="¿Cuál es el recuerdo más bonito que tienes?"></textarea></div>
+
+      <!-- Preguntas 21 - 25 (íntimas) -->
+      <div class="question"><p>21. ¿Hacer el amor rudo o lento?</p>
+        <label><input type="radio" name="¿Hacer el amor rudo o lento?" value="Rudo"> Rudo</label>
+        <label><input type="radio" name="¿Hacer el amor rudo o lento?" value="Lento"> Lento</label>
+        <label><input type="radio" name="¿Hacer el amor rudo o lento?" value="Depende del momento"> Depende del momento</label>
+      </div>
+      <div class="question"><p>22. ¿Adentro o afuera?</p>
+        <label><input type="radio" name="¿Adentro o afuera?" value="Adentro"> Adentro</label>
+        <label><input type="radio" name="¿Adentro o afuera?" value="Afuera"> Afuera</label>
+      </div>
+      <div class="question"><p>23. ¿Cuál es tu parte favorita para que te besen?</p><input type="text" name="¿Cuál es tu parte favorita para que te besen?"></div>
+      <div class="question"><p>24. ¿Qué prefieres?</p>
+        <label><input type="radio" name="¿Qué prefieres?" value="Abrazos largos"> Abrazos largos</label>
+        <label><input type="radio" name="¿Qué prefieres?" value="Besos apasionados"> Besos apasionados</label>
+        <label><input type="radio" name="¿Qué prefieres?" value="Caricias suaves"> Caricias suaves</label>
+      </div>
+      <div class="question"><p>25. ¿Qué fantasía te gustaría cumplir alguna vez?</p><textarea name="¿Qué fantasía te gustaría cumplir alguna vez?"></textarea></div>
+
+      <button type="submit">Enviar Respuestas</button>
+      <p id="status"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("quiz-form");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      status.textContent = "⏳ Enviando...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          status.textContent = "✅ Respuestas enviadas a Fran. ¡Gracias Paola!";
+          form.reset();
+        } else {
+          status.textContent = "⚠️ Hubo un problema. Intenta de nuevo.";
+        }
+      } catch (err) {
+        status.textContent = "❌ Error de conexión.";
+      }
+    });
+  </script>
+</body>
+</html>
