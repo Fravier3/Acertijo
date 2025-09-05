@@ -2,203 +2,334 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Cuestionario Personal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acertijo Misterioso</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      margin: 0;
-      padding: 0;
+      font-family: "Georgia", serif;
+      background: linear-gradient(to bottom, #1a1a1a, #000);
+      color: #f5deb3;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       min-height: 100vh;
-      color: #fff;
-    }
-    .container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px 40px;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      max-width: 700px;
-      width: 100%;
-      backdrop-filter: blur(10px);
-      animation: fadeIn 0.8s ease;
-      overflow-y: auto;
-      max-height: 95vh;
-    }
-    h2 {
+      margin: 0;
+      padding: 20px;
       text-align: center;
+    }
+    h1, h2 {
+      text-shadow: 0 0 12px #000;
+      font-size: 1.6rem;
       margin-bottom: 20px;
-      font-size: 28px;
     }
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-    }
-    .question p {
-      margin: 0 0 10px 0;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    label {
-      display: block;
-      margin: 6px 0;
-      cursor: pointer;
-      font-size: 18px;
-    }
-    input[type="radio"] {
-      transform: scale(1.3);
-      margin-right: 8px;
-    }
-    input[type="text"], textarea {
+    .section {
+      display: none;
       width: 100%;
-      padding: 14px;
-      border-radius: 8px;
-      border: none;
-      margin-top: 6px;
-      font-size: 20px;
-      line-height: 1.4;
-      box-sizing: border-box;
+      max-width: 700px;
     }
-    textarea {
-      resize: vertical;
-      min-height: 60px;
+    .active {
+      display: block;
+    }
+    input, button {
+      padding: 15px;
+      margin: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1.2rem;
+    }
+    input {
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
     }
     button {
-      width: 100%;
-      padding: 14px;
-      background: #00c6ff;
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 18px;
-      font-weight: bold;
+      background: goldenrod;
+      color: #000;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(218,165,32,0.7);
+      width: 80%;
+      max-width: 300px;
     }
-    button:hover {
-      background: #0072ff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    button:active {
+      transform: scale(0.95);
     }
-    #status {
-      text-align: center;
+    .emoji {
+      font-size: 3.5rem;
+      margin: 10px;
+    }
+    .word-box {
+      display: inline-block;
+      background: #333;
+      padding: 12px 18px;
+      margin: 8px;
+      border: 2px solid goldenrod;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #f5deb3;
+      transition: 0.3s;
+      font-size: 1.1rem;
+    }
+    .word-box:hover {
+      background: goldenrod;
+      color: #000;
+    }
+    /* Hints especiales solo borde verde */
+    .hint {
+      border: 2px solid green !important;
+    }
+    /* Números resaltados */
+    #codigo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: gold;
+      text-shadow: 0 0 10px goldenrod;
+      margin: 20px 0;
+    }
+    .rueda-container {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .rueda {
+      width: 90px;
+      height: 90px;
+      border: 3px solid goldenrod;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      cursor: pointer;
+      background: radial-gradient(circle, #333, #000);
+      box-shadow: 0 0 12px rgba(218,165,32,0.8);
+      transition: transform 0.3s ease;
+    }
+    .rueda:active {
+      transform: scale(1.1);
+    }
+    #mensaje {
+      font-size: 1.6rem;
+      margin-top: 20px;
+      color: lightgreen;
+      text-shadow: 0 0 8px black;
+      display: none;
+    }
+    .leyenda {
+      font-style: italic;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid goldenrod;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 15px auto;
+      max-width: 90%;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    #estado, #hallazgo, #progreso {
       margin-top: 15px;
-      font-size: 15px;
       font-weight: bold;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    #hallazgo {
+      font-size: 1.8rem;
+      color: lightgreen;
+      margin-top: 20px;
+      display: none;
+      text-shadow: 0 0 12px #000;
+    }
+    #progreso {
+      font-size: 1.3rem;
+      margin-top: 15px;
+      color: white;
+    }
+    #error2 {
+      color: red;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      height: 24px;
+    }
+    /* Ajustes móviles */
+    @media (max-width: 480px) {
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1.1rem; }
+      .emoji { font-size: 3rem; }
+      .rueda { width: 75px; height: 75px; font-size: 1.8rem; }
+      #mensaje { font-size: 1.3rem; }
+      .word-box { font-size: 1rem; padding: 10px 14px; }
+      #codigo { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Cuestionario Personal</h2>
-    <form id="quiz-form" action="https://formspree.io/f/xblapzko" method="POST">
 
-      <!-- 🥘 Gustos y preferencias -->
-      <div class="question"><p>1. ¿Cuál es tu comida favorita?</p><input type="text" name="¿Cuál es tu comida favorita?"></div>
-      <div class="question"><p>2. ¿Cuál es tu color favorito?</p><input type="text" name="¿Cuál es tu color favorito?"></div>
-      <div class="question"><p>3. ¿Cuál es tu dulce favorito?</p><input type="text" name="¿Cuál es tu dulce favorito?"></div>
-      <div class="question"><p>4. ¿Qué te gusta más?</p>
-        <label><input type="radio" name="¿Qué te gusta más?" value="Ver pelis"> Ver pelis</label>
-        <label><input type="radio" name="¿Qué te gusta más?" value="Dormir"> Dormir</label>
-        <label><input type="radio" name="¿Qué te gusta más?" value="Salir a pasear"> Salir a pasear</label>
-      </div>
-      <div class="question"><p>5. ¿Qué te gusta más en vestir?</p>
-        <label><input type="radio" name="¿Qué te gusta más en vestir?" value="Vestido"> Vestido</label>
-        <label><input type="radio" name="¿Qué te gusta más en vestir?" value="Pantalón con camisa"> Pantalón con camisa</label>
-      </div>
-
-      <!-- 🎁 Experiencias -->
-      <div class="question"><p>6. ¿Qué cosa has comprado y volverías a comprar muchas veces?</p><input type="text" name="¿Qué cosa has comprado y volverías a comprar muchas veces?"></div>
-      <div class="question"><p>7. ¿Qué objeto o regalo te haría mucha ilusión recibir?</p><input type="text" name="¿Qué objeto o regalo te haría mucha ilusión recibir?"></div>
-
-      <!-- 🌎 Sueños -->
-      <div class="question"><p>8. ¿Qué te gustaría lograr en la vida?</p><textarea name="¿Qué te gustaría lograr en la vida?"></textarea></div>
-      <div class="question"><p>9. ¿Qué nunca has hecho y te encantaría hacer?</p><textarea name="¿Qué nunca has hecho y te encantaría hacer?"></textarea></div>
-      <div class="question"><p>10. Si pudieras viajar a cualquier lugar del mundo, ¿a dónde irías?</p><input type="text" name="Si pudieras viajar a cualquier lugar del mundo, ¿a dónde irías?"></div>
-
-      <!-- ❤️ Relaciones -->
-      <div class="question"><p>11. Si quisieras que yo siempre hiciera algo que te gusta, ¿qué sería?</p><textarea name="Si quisieras que yo siempre hiciera algo que te gusta, ¿qué sería?"></textarea></div>
-      <div class="question"><p>12. ¿Qué valorarías más en una relación?</p><textarea name="¿Qué valorarías más en una relación?"></textarea></div>
-      <div class="question"><p>13. ¿Qué superpoder te gustaría tener?</p><input type="text" name="¿Qué superpoder te gustaría tener?"></div>
-      <div class="question"><p>14. A mí me puedes asociar con un astronauta, ¿a ti con qué te puedo asociar?</p><input type="text" name="A mí me puedes asociar con un astronauta, ¿a ti con qué te puedo asociar?"></div>
-
-      <!-- 🎉 Diversión -->
-      <div class="question"><p>15. ¿Qué prefieres para pasar el tiempo?</p>
-        <label><input type="radio" name="¿Qué prefieres para pasar el tiempo?" value="Leer"> Leer</label>
-        <label><input type="radio" name="¿Qué prefieres para pasar el tiempo?" value="Ver series/películas"> Ver series/películas</label>
-        <label><input type="radio" name="¿Qué prefieres para pasar el tiempo?" value="Escuchar música"> Escuchar música</label>
-      </div>
-      <div class="question"><p>16. ¿Prefieres salir de fiesta o quedarte en casa con una peli/serie?</p>
-        <label><input type="radio" name="¿Prefieres salir de fiesta o quedarte en casa con una peli/serie?" value="Salir de fiesta"> Salir de fiesta</label>
-        <label><input type="radio" name="¿Prefieres salir de fiesta o quedarte en casa con una peli/serie?" value="Quedarme en casa"> Quedarme en casa</label>
-      </div>
-      <div class="question"><p>17. ¿Qué canción nunca te cansas de escuchar?</p><input type="text" name="¿Qué canción nunca te cansas de escuchar?"></div>
-      <div class="question"><p>18. ¿Qué actividad disfrutas más en tu tiempo libre?</p><input type="text" name="¿Qué actividad disfrutas más en tu tiempo libre?"></div>
-
-      <!-- 🌟 Cosas únicas -->
-      <div class="question"><p>19. ¿Qué cosa simple te hace feliz?</p><input type="text" name="¿Qué cosa simple te hace feliz?"></div>
-      <div class="question"><p>20. ¿Cuál es el recuerdo más bonito que tienes?</p><textarea name="¿Cuál es el recuerdo más bonito que tienes?"></textarea></div>
-
-      <!-- 🔥 Íntimas -->
-      <div class="question"><p>21. ¿Hacer el amor rudo o lento?</p>
-        <label><input type="radio" name="¿Hacer el amor rudo o lento?" value="Rudo"> Rudo</label>
-        <label><input type="radio" name="¿Hacer el amor rudo o lento?" value="Lento"> Lento</label>
-        <label><input type="radio" name="¿Hacer el amor rudo o lento?" value="Depende del momento"> Depende del momento</label>
-      </div>
-      <div class="question"><p>22. ¿Adentro o afuera?</p>
-        <label><input type="radio" name="¿Adentro o afuera?" value="Adentro"> Adentro</label>
-        <label><input type="radio" name="¿Adentro o afuera?" value="Afuera"> Afuera</label>
-      </div>
-      <div class="question"><p>23. ¿Cuál es tu parte favorita para que te besen?</p><input type="text" name="¿Cuál es tu parte favorita para que te besen?"></div>
-      <div class="question"><p>24. ¿Qué prefieres?</p>
-        <label><input type="radio" name="¿Qué prefieres?" value="Abrazos largos"> Abrazos largos</label>
-        <label><input type="radio" name="¿Qué prefieres?" value="Besos apasionados"> Besos apasionados</label>
-        <label><input type="radio" name="¿Qué prefieres?" value="Caricias suaves"> Caricias suaves</label>
-      </div>
-      <div class="question"><p>25. ¿Qué fantasía te gustaría cumplir alguna vez?</p><textarea name="¿Qué fantasía te gustaría cumplir alguna vez?"></textarea></div>
-
-      <button type="submit">Enviar Respuestas</button>
-      <p id="status"></p>
-    </form>
+  <!-- Pantalla de inicio -->
+  <div id="iniciar" class="section active">
+    <h2>✨ Acertijo misterioso del puertorriqueño ✨</h2>
+    <p>
+      Los pasados días has descifrado 2 maneras de traducir mensajes ocultos,<br>
+      esta vez esos conocimientos adquiridos te ayudarán a avanzar<br>
+      por una serie de acertijos que te llevarán al acertijo final.<br><br>
+      ¿Estás lista?
+    </p>
+    <button onclick="comenzar()">Comenzar</button>
   </div>
 
+  <!-- Acertijo 1 -->
+  <div id="acertijo1" class="section">
+    <h2>🦅 Acertijo misterioso del puertorriqueño 🗝️</h2>
+    <div>
+      <span class="emoji">🦉</span>
+      <span class="emoji">🍇</span>
+      <span class="emoji">🐸</span>
+      <span class="emoji">🐴</span>
+      <span class="emoji">🥑</span>
+    </div>
+    <input type="text" id="respuesta1" placeholder="Escribe aquí">
+    <br>
+    <button onclick="validar1()">Avanzar</button>
+    <p id="error1" style="color:red;"></p>
+  </div>
+
+  <!-- Acertijo 2 -->
+  <div id="acertijo2" class="section">
+    <h2>🌿 Acertijo misterioso del puertorriqueño 🌿</h2>
+    <div id="codigo">5-12 / 20-5-19-15-18-15 / 16-5-18-4-9-4-15</div>
+    <div id="progreso"></div>
+    <p>Selecciona las palabras correctas:</p>
+    <div id="wordOptions">
+      <div class="word-box hint" onclick="selectWord(this)">Aguila</div>
+      <div class="word-box" onclick="selectWord(this)">Destino</div>
+      <div class="word-box" onclick="selectWord(this)">Tesoro</div>
+      <div class="word-box" onclick="selectWord(this)">Oscuro</div>
+      <div class="word-box" onclick="selectWord(this)">El</div>
+      <div class="word-box" onclick="selectWord(this)">Puerta</div>
+      <div class="word-box" onclick="selectWord(this)">La</div>
+      <div class="word-box hint" onclick="selectWord(this)">Llave</div>
+      <div class="word-box" onclick="selectWord(this)">Perdido</div>
+      <div class="word-box" onclick="selectWord(this)">Camino</div>
+      <div class="word-box" onclick="selectWord(this)">Los</div>
+      <div class="word-box" onclick="selectWord(this)">Guardián</div>
+      <div class="word-box" onclick="selectWord(this)">Árbol</div>
+      <div class="word-box" onclick="selectWord(this)">Vida</div>
+      <div class="word-box" onclick="selectWord(this)">Luz</div>
+      <div class="word-box hint" onclick="selectWord(this)">Ramo de hojas</div>
+    </div>
+    <br>
+    <button onclick="validar2()">Avanzar</button>
+    <p id="error2"></p>
+    <p id="hallazgo">"Busca el tesoro perdido"    ...Encontrado ✅!!! </p>
+  </div>
+
+  <!-- Acertijo 3 -->
+<div id="acertijo3" class="section">
+  <h2>💎 El tesoro perdido del puertorriqueño 💎</h2>
+  <p>Has encontrado el cofre del tesoro perdido, pero debes abrirlo para descubrir lo que lleva en su interior. Toca las ruedas hasta encontrar la combinación correcta:</p>
+
+  <div class="leyenda">
+    Acertijo Final:<br><br>
+    “Desde lo alto en los cielos se aprecia el comienzo,<br>
+    donde el guardián del misterio abre el camino,<br>
+    y el árbol de la vida resguarda el secreto eterno.”
+  </div>
+
+  <div class="rueda-container">
+    <div class="rueda" onclick="girar(0)">☀️</div>
+    <div class="rueda" onclick="girar(1)">🌙</div>
+    <div class="rueda" onclick="girar(2)">⭐</div>
+  </div>
+
+  <button onclick="verificar()">Probar combinación</button>
+  <p id="estado"></p>
+  <p id="mensaje">✨ Diana Paola, el verdadero tesoro del puertorriqueño eres tú ✨</p>
+</div>
+
   <script>
-    const form = document.getElementById("quiz-form");
-    const status = document.getElementById("status");
+    // Pantalla inicial
+    function comenzar() {
+      document.getElementById("iniciar").classList.remove("active");
+      document.getElementById("acertijo1").classList.add("active");
+    }
 
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const data = new FormData(form);
-      status.textContent = "⏳ Enviando...";
-
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          status.textContent = "✅ Respuestas enviadas. ¡Gracias Paola!";
-          form.reset();
-        } else {
-          status.textContent = "⚠️ Hubo un problema. Intenta de nuevo.";
-        }
-      } catch (err) {
-        status.textContent = "❌ Error de conexión.";
+    // Acertijo 1
+    function validar1() {
+      let resp = document.getElementById("respuesta1").value.trim().toLowerCase();
+      if (resp === "busca") {
+        document.getElementById("acertijo1").classList.remove("active");
+        document.getElementById("acertijo2").classList.add("active");
+      } else {
+        document.getElementById("error1").textContent = "❌ Intenta de nuevo.";
       }
-    });
+    }
+
+    // Acertijo 2
+    let seleccionadas = [];
+    function selectWord(el) {
+      if (seleccionadas.includes(el.textContent)) {
+        // Deseleccionar si ya estaba seleccionada
+        seleccionadas = seleccionadas.filter(w => w !== el.textContent);
+        el.style.background = "#333";
+        el.style.color = "#f5deb3";
+      } else {
+        if (seleccionadas.length === 3) {
+          // Deseleccionar la primera seleccionada
+          let primera = seleccionadas.shift();
+          document.querySelectorAll(".word-box").forEach(box => {
+            if (box.textContent === primera) {
+              box.style.background = "#333";
+              box.style.color = "#f5deb3";
+            }
+          });
+        }
+        seleccionadas.push(el.textContent);
+        el.style.background = "goldenrod";
+        el.style.color = "#000";
+      }
+    }
+
+    function validar2() {
+      let correcto = ["El","Tesoro","Perdido"];
+      let error = document.getElementById("error2");
+      if (JSON.stringify(seleccionadas.sort()) === JSON.stringify(correcto.sort())) {
+        document.getElementById("progreso").textContent = "";
+        document.getElementById("progreso").style.color = "lightgreen";
+        document.getElementById("hallazgo").style.display = "block";
+        error.textContent = "";
+        setTimeout(() => {
+          document.getElementById("acertijo2").classList.remove("active");
+          document.getElementById("acertijo3").classList.add("active");
+        }, 2500);
+      } else {
+        error.textContent = "❌ Selección incorrecta.";
+        setTimeout(() => { error.textContent = ""; }, 2500);
+      }
+    }
+
+    // Acertijo 3
+    const simbolos = ["☀️","🌙","⭐","🔥","💧","🌿","🦅","🗝️"];
+    const ruedas = document.querySelectorAll(".rueda");
+    const solucion = ["🦅","🗝️","🌿"];
+
+    function girar(index) {
+      let actual = simbolos.indexOf(ruedas[index].textContent);
+      let siguiente = (actual + 1) % simbolos.length;
+      ruedas[index].textContent = simbolos[siguiente];
+    }
+
+    function verificar() {
+  let intento = Array.from(ruedas).map(r => r.textContent);
+  if (JSON.stringify(intento) === JSON.stringify(solucion)) {
+    document.getElementById("mensaje").style.display = "block";
+    document.getElementById("estado").textContent = "";
+  } else {
+    document.getElementById("mensaje").style.display = "none";
+    document.getElementById("estado").textContent = "❌ Combinación incorrecta";
+    document.getElementById("estado").style.color = "red";
+  }
+}
   </script>
+
 </body>
 </html>
-
