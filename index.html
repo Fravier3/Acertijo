@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Cuestionario Personal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -50,14 +51,15 @@
     }
     input[type="radio"], input[type="text"], textarea {
       margin-right: 8px;
-      font-size: 16px;
+      font-size: 18px; /* 👈 más grande para evitar zoom y ser cómodo */
     }
     input[type="text"], textarea {
       width: 100%;
-      padding: 8px;
+      padding: 12px;
       border-radius: 8px;
       border: none;
       margin-top: 6px;
+      box-sizing: border-box;
     }
     textarea {
       resize: vertical;
@@ -180,7 +182,7 @@
         });
 
         if (response.ok) {
-          status.textContent = "✅ Respuestas enviadas a Fran. ¡Gracias Paola!";
+          status.textContent = "✅ Respuestas enviadas. ¡Revisa tu correo/Formspree!";
           form.reset();
         } else {
           status.textContent = "⚠️ Hubo un problema. Intenta de nuevo.";
